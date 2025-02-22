@@ -1,35 +1,31 @@
 package com.example.shopfood
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.inputmethod.InputBinding
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
-import androidx.core.app.ActivityOptionsCompat.BackgroundActivityStartMode
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.shopfood.databinding.ActivityStartBinding
+import com.example.shopfood.databinding.ActivityLoginBinding
+import com.example.shopfood.databinding.ActivitySignUpUserBinding
 
-class StartActivity : AppCompatActivity() {
+class SignUpUserActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityStartBinding
+    private lateinit var binding: ActivitySignUpUserBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_start)
 
-        binding = ActivityStartBinding.inflate(layoutInflater)
+        binding = ActivitySignUpUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        binding.goUserLoginBtn.setOnClickListener {
-            val intent = Intent(this@StartActivity, LoginActivity :: class.java)
-            startActivity(intent)
+        binding.goLoginUserPage.setOnClickListener {
+            val intent = Intent(this@SignUpUserActivity, LoginActivity :: class.java)
         }
+        startActivity(intent)
 
+        setContentView(R.layout.activity_sign_up_user)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

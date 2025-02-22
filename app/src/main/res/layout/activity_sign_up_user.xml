@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".SignUpUserActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="войдите в свой аккаунт"
+        android:text="Зарегестрируйте свой аккаунт"
         android:textColor="@color/startGreenColor"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -54,12 +54,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
+    <EditText
+        android:id="@+id/sign_up_user_name"
+        android:layout_width="330dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edit_text_bg"
+        android:drawableLeft="@drawable/ic_user"
+        android:drawablePadding="15dp"
+        android:inputType="text"
+        android:elevation="1in"
+        android:hint="Имя"
+        android:paddingLeft="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <EditText
         android:id="@+id/sign_in_email"
         android:layout_width="330dp"
         android:layout_height="65dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_bg"
         android:drawableLeft="@drawable/ic_mail"
         android:drawablePadding="15dp"
@@ -70,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_user_name" />
 
     <EditText
         android:id="@+id/sign_in_pass"
@@ -165,7 +181,7 @@
         android:outlineAmbientShadowColor="@color/startGreenColor"
         android:outlineSpotShadowColor="@color/startGreenColor"
         android:shadowColor="@color/startGreenColor"
-        android:text="Логин"
+        android:text="регистрация"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20dp"
@@ -175,16 +191,17 @@
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <TextView
-        android:id="@+id/go_sign_up_user"
+        android:id="@+id/go_login_user_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Нет аккаунта?"
+        android:text="у меня есть аккаунт"
         android:textColor="@color/startGreenColor"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

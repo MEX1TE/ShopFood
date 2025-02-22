@@ -3,6 +3,7 @@ package com.example.shopfood
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.IntentSenderRequest
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -22,14 +23,23 @@ class SignUpUserActivity : AppCompatActivity() {
 
         binding.goLoginUserPage.setOnClickListener {
             val intent = Intent(this@SignUpUserActivity, LoginActivity :: class.java)
+            startActivity(intent)
         }
-        startActivity(intent)
 
-        setContentView(R.layout.activity_sign_up_user)
+
+
+
+        binding.button3.setOnClickListener {
+            val intent = Intent(this@SignUpUserActivity,MainActivity :: class.java)
+            startActivity(intent)
+            finish()
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
     }
 }

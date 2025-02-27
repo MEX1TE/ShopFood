@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.shopfood.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +22,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        val bottomNavVeiw = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val navigationView = findNavController(R.id.fragment_container)
+
+        bottomNavVeiw.setupWithNavController(navigationView)
+
         // Включаем поддержку edge-to-edge
         enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -26,26 +35,5 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        // Устанавливаем стартовый фрагмент
-        changeFragment(HomeFragment())
-
-        // Обрабатываем клики по элементам BottomNavigationView
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> changeFragment(HomeFragment())
-                R.id.cart -> changeFragment(CartFragment())
-                R.id.search -> changeFragment(SearchFragment())
-                R.id.history -> changeFragment(HistoryFragment())
-                R.id.profile -> changeFragment(ProfileFragment())
-            }
-            true
-        }
-    }
-
-    private fun changeFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
     }
 }

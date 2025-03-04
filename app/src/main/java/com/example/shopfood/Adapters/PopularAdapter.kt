@@ -5,7 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shopfood.DitailsActivity
+import com.example.shopfood.DetailsActivity
 import com.example.shopfood.Models.PopularModel
 import com.example.shopfood.Models.SharedModel
 import com.example.shopfood.databinding.FragmentHomeBinding
@@ -40,7 +40,7 @@ class PopularAdapter(
         listModel.getFoodImage()?.let { holder.foodImage.setImageResource(it) }
 
         holder.item.setOnClickListener {
-            val intent = Intent(context, DitailsActivity :: class.java)
+            val intent = Intent(context, DetailsActivity :: class.java)
             intent.putExtra("foodImage", listModel.getFoodImage())
             intent.putExtra("foodName", listModel.getFoodName())
             context.startActivity(intent)

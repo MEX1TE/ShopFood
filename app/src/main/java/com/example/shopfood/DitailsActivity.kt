@@ -1,39 +1,40 @@
 package com.example.shopfood
 
+import CartViewModel
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.shopfood.databinding.ActivityDitailsBinding
-import com.example.shopfood.databinding.HomeFootItemBinding
+import com.example.shopfood.Models.Product
 
-class DitailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityDitailsBinding
+    private lateinit var viewModel: CartViewModel // Объявляем ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDitailsBinding.inflate(layoutInflater)
-
-        enableEdgeToEdge()
         setContentView(binding.root)
 
-        val foodImage = intent.getIntExtra("foodImage", 0)
-        val foodName = intent.getStringExtra("foodName")
+        // Инициализируем ViewModel
+        viewModel = ViewModelProvider(this).get(CartViewModel::class.java)
 
-        binding.menuDFoodImage.setImageResource(foodImage)
-        binding.menuDFoodName.text = foodName
+        val product = intent.getSerializableExtra("product") as Product
+        binding.menuDFoodName.text = product.name
+        binding.menuDFoodImage.setImageResource(product.image)
+        binding.menuDFoodIndegrients.text = "• ${product.name} ingredients"
+
+        binding.addToCartButton.setOnClickListener {
+            viewModel.addToCart(product)
+            Log.d("DetailsActivity", "Added to cart: ${product.name}, Cart size: ${viewModel.cartItems.value?.size ?: 0}")
+            binding.addToCartButton.text = "В корзине (${viewModel.cartItems.value?.size ?: 0})"
+        }
 
         binding.backHome.setOnClickListener {
             finish()
-        }
-
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
         }
     }
 }

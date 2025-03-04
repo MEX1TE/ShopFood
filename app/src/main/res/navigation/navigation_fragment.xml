@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/cart"
-        android:name="com.example.shopfood.CartFragment"
+        android:name="com.example.shopfood.ui.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment

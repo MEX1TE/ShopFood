@@ -1,100 +1,66 @@
-package com.example.shopfood.Adapters
+package com.example.shopfood
 
-import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatButton
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shopfood.Adapters.PopularAdapter.PopularViewHolder
-import com.example.shopfood.Models.PopularModel
-import com.example.shopfood.databinding.CartAddItemBinding
-import com.example.shopfood.databinding.HomeFootItemBinding
+import com.example.shopfood.Models.Product
 
-class CartAdapter(val context : Context,
-                  var list : ArrayList<PopularModel>
-) :RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(
+    private val cartItems: MutableList<Product>,
+    private val onQuantityChanged: () -> Unit,
+    private val onItemRemoved: (Int) -> Unit
+) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.CartViewHolder {
-
-        val binding = CartAddItemBinding.inflate(LayoutInflater.from(context), parent, false)
-        return CartViewHolder(binding)
+    class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val foodImage: ImageView = itemView.findViewById(R.id.home_food_image)
+        val foodName: TextView = itemView.findViewById(R.id.home_food_name)
+        val foodPrice: TextView = itemView.findViewById(R.id.home_food_price)
+        val foodCount: TextView = itemView.findViewById(R.id.food_count)
+        val plusButton: AppCompatButton = itemView.findViewById(R.id.plus_btn)
+        val minusButton: AppCompatButton = itemView.findViewById(R.id.minus_btn)
+        val deleteButton: AppCompatButton = itemView.findViewById(R.id.delete_btn)
     }
 
-    override fun onBindViewHolder(holder: CartAdapter.CartViewHolder, position: Int) {
+    val quantities = mutableMapOf<Int, Int>()
 
-        val listModel = list[position]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.cart_add_item, parent, false)
+        return CartViewHolder(view)
+    }
 
-        holder.foodName.text = listModel.getFoodName()
-        holder.foodPrice.text = listModel.getFoodPrice()
-        listModel.getFoodImage()?.let { holder.foodImage.setImageResource(it) }
+    override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
+        val product = cartItems[position]
+        holder.foodImage.setImageResource(product.image)
+        holder.foodName.text = product.name
+        holder.foodPrice.text = "${product.price} $"
 
-        holder.plus.setOnClickListener {
-            if (listModel.getFoodCount() < 10){
-                val count = listModel.getFoodCount() + 1
-                listModel.setFoodCount(count)
-                holder.foodCount.text = listModel.getFoodCount().toString()
+        val currentQuantity = quantities.getOrDefault(product.id, 1)
+        quantities[product.id] = currentQuantity
+        holder.foodCount.text = currentQuantity.toString()
 
+        holder.plusButton.setOnClickListener {
+            quantities[product.id] = currentQuantity + 1
+            holder.foodCount.text = quantities[product.id].toString()
+            onQuantityChanged()
+        }
+
+        holder.minusButton.setOnClickListener {
+            if (currentQuantity > 1) {
+                quantities[product.id] = currentQuantity - 1
+                holder.foodCount.text = quantities[product.id].toString()
+                onQuantityChanged()
             }
-
-
-        }
-        holder.minus.setOnClickListener {
-
-            if (listModel.getFoodCount() > 1 ){
-                val count = listModel.getFoodCount() - 1
-                listModel.setFoodCount(count)
-                holder.foodCount.text = listModel.getFoodCount().toString()
-            }
-            else{
-                holder.bindItem()
-            }
-
-
         }
 
-
-        holder.deleteBtn.setOnClickListener {
-            holder.bindItem()
+        holder.deleteButton.setOnClickListener {
+            onItemRemoved(position)
         }
-
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
-    inner class CartViewHolder(binding: CartAddItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        val foodImage = binding.homeFoodImage
-        val foodName = binding.homeFoodName
-        val foodPrice = binding.homeFoodPrice
-        val foodCount = binding.foodCount
-
-        val plus = binding.plusBtn
-        val minus = binding.minusBtn
-
-        val deleteBtn = binding.deleteBtn
-
-
-
-        fun bindItem(){
-            if (adapterPosition != RecyclerView.NO_POSITION){
-                deleteItem(adapterPosition)
-
-            }
-
-        }
-
-    }
-
-    fun deleteItem(position: Int) {
-
-        if (position in 0 ..list.size){
-            list.removeAt(position)
-            notifyDataSetChanged()
-            notifyItemRangeChanged(position,list.size)
-        }
-
-    }
+    override fun getItemCount(): Int = cartItems.size
 }

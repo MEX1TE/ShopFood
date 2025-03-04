@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DitailsActivity">
+    tools:context=".DetailsActivity"> <!-- Обновите tools:context -->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/back_home"
@@ -16,7 +16,6 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/menu_d_foodName"
@@ -43,7 +42,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_d_foodName">
 
-
         <ImageView
             android:id="@+id/menu_d_foodImage"
             android:layout_width="330dp"
@@ -53,9 +51,7 @@
 
     </androidx.cardview.widget.CardView>
 
-
     <TextView
-
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,7 +75,6 @@
         app:layout_constraintStart_toStartOf="@+id/cardView3"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
-
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
@@ -91,7 +86,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/short_description_of_food" />
-
 
     <TextView
         android:id="@+id/menu_d_food_indegrients"
@@ -105,26 +99,26 @@
         app:layout_constraintStart_toStartOf="@+id/short_description_of_food"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/btn_green_90"
-        android:elevation="4dp"
-        android:outlineAmbientShadowColor="@color/startGreenColor"
-        android:outlineSpotShadowColor="@color/startGreenColor"
-        android:shadowColor="@color/startGreenColor"
-        android:text="добавить в корзину"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu_d_food_indegrients" />
+        android:id="@+id/addToCartButton"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="24dp"
+    android:layout_marginEnd="24dp"
+    android:background="@drawable/btn_green_90"
+    android:elevation="4dp"
+    android:outlineAmbientShadowColor="@color/startGreenColor"
+    android:outlineSpotShadowColor="@color/startGreenColor"
+    android:shadowColor="@color/startGreenColor"
+    android:text="добавить в корзину"
+    android:textAllCaps="false"
+    android:textColor="@color/white"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/menu_d_food_indegrients" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
